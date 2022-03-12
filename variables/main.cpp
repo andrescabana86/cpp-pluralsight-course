@@ -44,5 +44,20 @@ int main() {
     bool bool_value = true;
     std::cout << "this is a bool: " << bool_value << std::endl;
 
+    /*
+     * if we want to check the size of a data type
+     * we can use sizeof() function
+     */
+    std::cout << "size (in bytes) of an char: " << sizeof(char) << std::endl;
+    std::cout << "size (in bytes) of an short: " << sizeof(short) << std::endl;
+    std::cout << "size (in bytes) of an int: " << sizeof(int) << std::endl;
+    std::cout << "size (in bytes) of an long: " << sizeof(long) << std::endl;
+    std::cout << "size (in bytes) of an long long: " << sizeof(long long) << std::endl;
+    std::cout << "size (in bytes) of an float: " << sizeof(float) << std::endl;
+    std::cout << "size (in bytes) of an double: " << sizeof(double) << std::endl;
+    std::cout << "size (in bytes) of an bool: " << sizeof(bool) << std::endl;
+    std::cout << "size (in bytes) of an long int: " << sizeof(long int) << std::endl;
+
+
     return 0;
 }
