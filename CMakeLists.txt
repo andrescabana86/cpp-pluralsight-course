@@ -3,3 +3,4 @@ project(cpp_training)
 
 add_subdirectory(console-io)
 add_subdirectory(variables)
+add_subdirectory(functions)
