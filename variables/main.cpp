@@ -58,6 +58,13 @@ int main() {
     std::cout << "size (in bytes) of an bool: " << sizeof(bool) << std::endl;
     std::cout << "size (in bytes) of an long int: " << sizeof(long int) << std::endl;
 
+    // all of the varialbes can be represented using pointers and or references
+    // pointers using '*' character
+    // references using '&' character
+    bool* bool_pointer = new bool(false);
+    int& int_reference = integer;
+    std::cout << "this is a bool pointer: " << bool_pointer << std::endl;
+    std::cout << "this is an int reference: " << int_reference << std::endl;
 
     return 0;
 }
