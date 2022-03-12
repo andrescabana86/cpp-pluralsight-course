@@ -1,6 +1,5 @@
-cmake_minimum_required(VERSION 3.17)
-project(cpp_pluralsight_course)
+cmake_minimum_required(VERSION 3.2.2)
+project(cpp_training)
 
-set(CMAKE_CXX_STANDARD 17)
-
-add_executable(cpp_pluralsight_course main.cpp)
+add_subdirectory(console-io)
+add_subdirectory(variables)
