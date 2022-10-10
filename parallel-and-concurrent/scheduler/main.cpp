@@ -1,8 +1,10 @@
 /**
  * Two threads chopping vegetables
+ * Execution scheduling C++ demo
  */
 #include <thread>
 #include <chrono>
+#include <cstdio>
 
 bool chopping = true;
 

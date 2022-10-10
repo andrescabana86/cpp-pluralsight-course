@@ -1,9 +1,10 @@
 /**
  * Threads that waste CPU cycles
+ * Threads vs processes C++ demo
  */
 #include <thread>
 #include <chrono>
-#include <unistd.h>
+#include <cstdio>
 
 // a simple function that wastes CPU cycles "forever"
 void CpuWaster() {
