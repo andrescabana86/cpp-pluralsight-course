@@ -1,20 +1,17 @@
 /**
  * Two shoppers adding items to a shared notepad
  * Data Race condition C++ demo
- * solved using mutex
+ * solved using atomic lock
  */
 #include <cstdio>
 #include <thread>
-#include <mutex>
+#include <atomic>
 
-unsigned int garlic_count = 0;
-std::mutex pencil;
+std::atomic<unsigned int> garlic_count = 0;
 
 void shopper() {
     for (int i=0; i<10000000; i++) {
-        pencil.lock();
         garlic_count++;
-        pencil.unlock();
     }
 }
 
@@ -23,5 +20,5 @@ int main() {
     std::thread olivia(shopper);
     barron.join();
     olivia.join();
-    printf("We should buy %u garlic.\n", garlic_count);
+    printf("We should buy %u garlic.\n", garlic_count.load());
 }
