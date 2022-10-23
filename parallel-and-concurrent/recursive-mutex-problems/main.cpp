@@ -80,9 +80,9 @@ void shopper_atomic() {
 int main() {
     // using recursive mutex for a recursive problem
     printf("Using recursive mutex for a recursive problem:\n");
-    auto t1 = std::chrono::high_resolution_clock::now();
     std::thread barron(shopper);
     std::thread olivia(shopper);
+    auto t1 = std::chrono::high_resolution_clock::now();
     barron.join();
     olivia.join();
     auto t2 = std::chrono::high_resolution_clock::now();
@@ -94,9 +94,9 @@ int main() {
 
     // using mutex for a recursive problem
     printf("Using mutex for a recursive problem:\n");
-    t1 = std::chrono::high_resolution_clock::now();
     std::thread carlos(shopper_under_lock);
     std::thread raquel(shopper_under_lock);
+    t1 = std::chrono::high_resolution_clock::now();
     carlos.join();
     raquel.join();
     t2 = std::chrono::high_resolution_clock::now();
@@ -108,9 +108,9 @@ int main() {
 
     // using atomic for a recursive problem
     printf("Using atomic for a recursive problem:\n");
-    t1 = std::chrono::high_resolution_clock::now();
     std::thread mariano(shopper_atomic);
     std::thread maria(shopper_atomic);
+    t1 = std::chrono::high_resolution_clock::now();
     mariano.join();
     maria.join();
     t2 = std::chrono::high_resolution_clock::now();
