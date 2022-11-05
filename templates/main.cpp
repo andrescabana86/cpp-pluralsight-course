@@ -6,7 +6,7 @@
 #include <iostream>
 
 template <size_t size>
-void print(int array[size][size])
+void print(const int (&array)[size][size])
 {
     for (size_t i = 0; i < size; ++i)
     {
@@ -19,7 +19,7 @@ void print(int array[size][size])
 }
 
 template <size_t size>
-int ** transpose(const int array[size][size])
+int ** transpose(const int (&array)[size][size])
 {
     int **result;
     for (size_t i = 0; i < size; ++i)
