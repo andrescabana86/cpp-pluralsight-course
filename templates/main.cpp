@@ -19,9 +19,8 @@ void print(const int (&array)[size][size])
 }
 
 template <size_t size>
-int ** transpose(const int (&array)[size][size])
+void transpose(const int (&array)[size][size], int (&result)[size][size])
 {
-    int **result;
     for (size_t i = 0; i < size; ++i)
     {
         for (size_t j = 0; j < size; ++j) {
@@ -30,19 +29,20 @@ int ** transpose(const int (&array)[size][size])
         }
         std::cout << std::endl;
     }
-    return result;
 }
 
 int main() {
-    const int size = 4;
+    const int size = 3;
     int twoDimArr[size][size] = {
         1,2,3,4,
         5,6,7,8,
-        9,10,11,12,
-        13,14,15,16
+        9
     };
+    int result[size][size];
 
     print<size>(twoDimArr);
+    transpose(twoDimArr, result);
+    print<size>(result);
 
     return 0;
 }
