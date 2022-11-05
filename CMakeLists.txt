@@ -23,4 +23,5 @@ add_subdirectory(parallel-and-concurrent/scoped-mutex)
 add_subdirectory(parallel-and-concurrent/live-lock)
 add_subdirectory(standard-library/std-vector)
 add_subdirectory(standard-library/std-list)
+add_subdirectory(challenges/largest-sum-contiguous-subarray)
 
