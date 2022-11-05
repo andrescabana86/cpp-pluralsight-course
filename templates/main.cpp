@@ -24,10 +24,8 @@ void transpose(const int (&array)[size][size], int (&result)[size][size])
     for (size_t i = 0; i < size; ++i)
     {
         for (size_t j = 0; j < size; ++j) {
-            std::cout << i << j << " ";
             result[j][i] = array[i][j];
         }
-        std::cout << std::endl;
     }
 }
 
