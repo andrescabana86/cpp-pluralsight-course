@@ -5,26 +5,26 @@
  */
 #include <iostream>
 
-template <size_t rows, size_t cols>
-void printArray(int array[rows][cols])
+template <size_t size>
+void print(int array[size][size])
 {
-    for (size_t i = 0; i < rows; ++i)
+    for (size_t i = 0; i < size; ++i)
     {
         std::cout << i << ": ";
-        for (size_t j = 0; j < cols; ++j) {
+        for (size_t j = 0; j < size; ++j) {
             std::cout << array[i][j] << '\t';
         }
         std::cout << std::endl;
     }
 }
 
-template <size_t rows, size_t cols>
-int ** transpose(const int array[rows][cols])
+template <size_t size>
+int ** transpose(const int array[size][size])
 {
     int **result;
-    for (size_t i = 0; i < rows; ++i)
+    for (size_t i = 0; i < size; ++i)
     {
-        for (size_t j = 0; j < cols; ++j) {
+        for (size_t j = 0; j < size; ++j) {
             std::cout << i << j << " ";
             result[j][i] = array[i][j];
         }
@@ -34,14 +34,15 @@ int ** transpose(const int array[rows][cols])
 }
 
 int main() {
-    const int rows = 4;
-    const int cols = 4;
-    int twoDimArr[rows][cols] = {
+    const int size = 4;
+    int twoDimArr[size][size] = {
         1,2,3,4,
         5,6,7,8,
         9,10,11,12,
         13,14,15,16
     };
+
+    print<size>(twoDimArr);
 
     return 0;
 }
