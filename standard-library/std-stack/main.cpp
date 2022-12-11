@@ -51,5 +51,14 @@ int main()
     stk2.pop();
     report_stack(stk2); // size: 5 top: five
 
+    message("stk2 pop all");
+    while(!stk2.empty())
+    {
+        cout << stk2.top() << " "; // five four three two one
+        stk2.pop();
+    }
+    cout << endl;
+    report_stack(stk2); // size: 0 top:
+
     return 0;
 }
