@@ -1,5 +1,3 @@
-// list.cpp by Bill Weinman <http://bw.org/>
-// updated 2018-09-12 for CppSTL
 #include <iostream>
 #include <list>
 using namespace std;
