@@ -27,6 +27,7 @@ add_subdirectory(standard-library/std-pair-tuple)
 add_subdirectory(standard-library/std-array)
 add_subdirectory(standard-library/std-deque)
 add_subdirectory(standard-library/std-queue)
+add_subdirectory(standard-library/std-stack)
 add_subdirectory(challenges/largest-sum-contiguous-subarray)
 add_subdirectory(challenges/arch-competition)
 
