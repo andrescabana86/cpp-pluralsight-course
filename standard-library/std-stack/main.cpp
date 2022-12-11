@@ -36,7 +36,7 @@ int main()
     }
     cout << endl;
 
-    message("stk2 default stack (deque)");
+    message("stk2 default stack (deque used by default)");
     stack<string> stk2;
     for(string s : {"one", "two", "three", "four", "five"}) {
         stk2.push(s);
