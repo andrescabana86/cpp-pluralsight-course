@@ -7,7 +7,9 @@
  */
 #include <iostream>
 #include <bits/stdc++.h>
-
+/*
+ * Largest Sum Contiguous Subarray (Kadane’s Algorithm)
+ */
 int maxSubArraySum(int a[], int size)
 {
     int max_so_far = INT_MIN, max_ending_here = 0;
