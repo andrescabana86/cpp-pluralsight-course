@@ -31,6 +31,7 @@ add_subdirectory(standard-library/std-stack)
 add_subdirectory(standard-library/std-set)
 add_subdirectory(standard-library/std-map)
 add_subdirectory(standard-library/std-iterator)
+add_subdirectory(standard-library/std-transform)
 add_subdirectory(challenges/largest-sum-contiguous-subarray)
 add_subdirectory(challenges/arch-competition)
 
