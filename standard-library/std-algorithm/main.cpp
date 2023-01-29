@@ -170,6 +170,10 @@ int main() {
     printv(copy2);
     copy_n(cp1.begin(),5,copy2.begin());
     printv(copy2);
+    message("copy_if() from one container to another if it matches the unary condition, same as filter");
+    vector<int> copyif1;
+    copy_if(cp1.begin(),cp1.end(), back_inserter(copyif1), [](int& value)->bool { return value%2==0; });
+    printv(copyif1);
     message("copy_backward() from one container to another");
     vector<int> copy3(cp1.size(), 0);
     printv(copy3);
