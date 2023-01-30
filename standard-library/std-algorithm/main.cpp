@@ -101,13 +101,6 @@ int main() {
     } else {
         cout << "number not found." << endl;
     }
-    message("use count()");
-    auto c = count(s1.begin(), s1.end(), 85); // count occurrences of a number
-    cout << "found " << c << " occurrences" << endl;
-    message("use count_if()");
-    auto cif = count_if(s1.begin(), s1.end(), is_odd<int>); // count occurrences of a number that matches the unary condition
-    cout << "found " << cif << " is_odd occurrences" << endl;
-
     message("===============REPLACING AND REMOVING EXAMPLE===============");
     vector<int> rpl1 = {
         71,85,87,94,49,76,59,25,35,15,47,85,96,32,15,76,91,61,37,48,86,62,24,11,37
