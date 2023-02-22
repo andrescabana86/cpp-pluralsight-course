@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.2.2)
 project(cpp_training)
 
 add_subdirectory(casting)
-add_subdirectory(challenges/arch-competition)
+add_subdirectory(challenges/continuous-add)
 add_subdirectory(challenges/largest-sum-contiguous-subarray)
 add_subdirectory(console-io)
 add_subdirectory(functional-programming/closure)
