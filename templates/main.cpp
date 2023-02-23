@@ -68,6 +68,17 @@ struct Cube {
     };
 };
 
+// factorial implementation using template
+template<int input, int sum=1>
+struct Factorial : Factorial<input-1, sum*input> {};
+// factorial especialization used as default case of recursion
+template<int sum>
+struct Factorial<1,sum> {
+    enum {
+        value = sum
+    };
+};
+
 int main() {
     // using a fixed size two dim array
     const int size = 3;
@@ -94,8 +105,9 @@ int main() {
     std::cout << std::endl;
 
     // instantiating with meta programming a class
-    std::cout << Cube<5>::value << std::endl;
+    std::cout << "metaprogramming struct call: " << Cube<5>::value << std::endl;
 
-
+    // using factorial template recursion
+    std::cout << "recursive template factorial of 5: " <<  Factorial<5>::value << std::endl;
     return 0;
 }
