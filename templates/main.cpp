@@ -2,8 +2,16 @@
  * Templates are a way of abstraction
  * template <template params>
  * typeReturned fnName(...) {}
+ * characteristics
+ * - template variables are always immutable
+ * - template doesn't have loops, so we use recursion
+ * - template doesn't have branching, we use specialization
+ * - You also must use class when explicitly instantiating a template: template class Foo<int>;
+ * - typename is used to declare when you are referencing a nested type that depends on another template parameter,
+ * such as the typedef, this is a case where template<class T> is not applicable
  */
 #include <iostream>
+#include <vector>
 
 template <size_t size>
 void print(const int (&array)[size][size])
@@ -53,6 +61,13 @@ void transposePtr(const int (&array)[size][size], int **result)
     }
 }
 
+template <int num>
+struct Cube {
+    enum {
+        value = num * num * num
+    };
+};
+
 int main() {
     // using a fixed size two dim array
     const int size = 3;
@@ -76,6 +91,10 @@ int main() {
 
     transposePtr<size>(twoDimArr, ptrResult);
     printPtr<size>(ptrResult);
+    std::cout << std::endl;
+
+    // instantiating with meta programming a class
+    std::cout << Cube<5>::value << std::endl;
 
 
     return 0;
