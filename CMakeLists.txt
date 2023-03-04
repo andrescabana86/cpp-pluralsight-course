@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2.2)
 project(cpp_training)
 
 add_subdirectory(casting)
+add_subdirectory(challenges/ch-weather-statistics)
 add_subdirectory(challenges/continuous-add)
 add_subdirectory(challenges/largest-sum-contiguous-subarray)
 add_subdirectory(challenges/factorial)
