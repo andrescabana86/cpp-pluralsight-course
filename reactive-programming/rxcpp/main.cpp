@@ -14,5 +14,7 @@
  * - supports either a chaining or a pipe interface
  */
 
+// ToDo: install package manager to add RxCpp to the project, across multiple platforms
+
 
 
