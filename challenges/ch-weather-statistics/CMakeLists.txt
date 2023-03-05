@@ -3,7 +3,7 @@ project(ch_weather_statistics)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(ch_weather_statistics main.cpp WeatherStatistics.h WeatherStatistics.cpp)
+add_executable(ch_weather_statistics main.cpp WeatherStatistic.h WeatherStatistic.cpp)
 
 add_custom_command(
     TARGET ch_weather_statistics POST_BUILD

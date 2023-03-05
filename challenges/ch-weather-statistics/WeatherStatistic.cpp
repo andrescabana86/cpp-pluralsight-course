@@ -1,8 +1,10 @@
-#include "WeatherStatistics.h"
+#include "WeatherStatistic.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <optional>
+#include <chrono>
+#include <regex>
 
 WeatherStat::WeatherStat() {};
 
@@ -19,19 +21,19 @@ WeatherStat::WeatherStat(int y, int m, int d, int h, int min, int sec)
     utcTime = mktime(&dateTime);
 }
 
-WeatherStatistics::WeatherStatistics() {};
+WeatherStatistic::WeatherStatistic() {};
 
-WeatherStatistics::WeatherStatistics(std::vector<std::string> listOfFilesLocations) {
+WeatherStatistic::WeatherStatistic(std::vector<std::string> listOfFilesLocations) {
     LoadFiles(listOfFilesLocations);
 }
 
-void WeatherStatistics::LoadFiles(std::vector<std::string> listOfFilesLocations) {
+void WeatherStatistic::LoadFiles(std::vector<std::string> listOfFilesLocations) {
     for (std::string fileLoc : listOfFilesLocations) {
         LoadDataFromFile(fileLoc);
     }
 }
 
-void WeatherStatistics::LoadDataFromFile(std::string fileLocation) {
+void WeatherStatistic::LoadDataFromFile(std::string fileLocation) {
     std::cout << "Loading... " << fileLocation << " file" << std::endl;
     std::ifstream fileIn(fileLocation);
     if (!fileIn.is_open()) {
@@ -39,31 +41,23 @@ void WeatherStatistics::LoadDataFromFile(std::string fileLocation) {
         return;
     }
 
+
     std::string line;
-    std::istringstream buffer;
     fileIn.ignore(LONG_MAX, '\n');
     while (std::getline(fileIn, line)) {
         std::string date, time;
-        buffer.str(line);
         double airTemp, barometricPress, dewPoint, relativeHumidity, windDir, windGust, windSpeed;
-        // buffer uses ">>" operator to identify values separated by spaces
-        // date and time are string, so buffer reads until it finds a non-string char
-        // when the first string ends (date) it puts inside date string variable
-        // it continues reading until it finds another string (time)
-        // put next string inside time variable, and it continues until it finds a double (airTemp)
-        // it will continue until the end
-        buffer >> date >> time >> airTemp >> barometricPress >> dewPoint >> relativeHumidity >> windDir >> windGust >> windSpeed;
+        std::vector<std::string> stats = SplitStringData(line);
         std::optional<WeatherStat> stat = ConvertToDateTime(date, time);
         if (!stat.has_value()) {
             continue;
         }
         timeToPressureMap[stat.value().utcTime] = stat.value();
-        buffer.clear();
     };
     fileIn.close();
 }
 
-std::optional<WeatherStat> WeatherStatistics::ConvertToDateTime(std::string date, std::string time) {
+std::optional<WeatherStat> WeatherStatistic::ConvertToDateTime(std::string date, std::string time) {
     // parse values from date
     int yyyy, mm, dd = 0;
     int dateMatches = std::sscanf(date.c_str(), "%d_%d_%d", &yyyy, &mm, &dd);
@@ -82,4 +76,23 @@ std::optional<WeatherStat> WeatherStatistics::ConvertToDateTime(std::string date
 
     return stat;
 }
+
+/**
+ * SplitStringData
+ * returns data[] with all Weather data for each line
+ * this works because the format of data line is well known
+ * @param str
+ * @return std::vector<std::string> data
+ */
+std::vector<std::string> WeatherStatistic::SplitStringData(std::string& str) {
+    std::vector<std::string> data;
+    std::regex re("[^ \t]+");
+    std::smatch match;
+    while (std::regex_search(str, match, re)) {
+        data.push_back(match.str());
+        str = match.suffix();
+    }
+    return data;
+}
+
 

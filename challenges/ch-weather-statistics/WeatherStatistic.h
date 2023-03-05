@@ -12,15 +12,16 @@ struct WeatherStat {
     WeatherStat(int y, int m, int d, int h, int min, int sec);
 };
 
-class WeatherStatistics
+class WeatherStatistic
 {
 public:
-    WeatherStatistics();
-    WeatherStatistics(std::vector<std::string> listOfFilesLocations);
+    WeatherStatistic();
+    WeatherStatistic(std::vector<std::string> listOfFilesLocations);
     void LoadFiles(std::vector<std::string> listOfFilesLocations);
 private:
     std::map<time_t, WeatherStat> timeToPressureMap;
     void LoadDataFromFile(std::string fileLocation);
     std::optional<WeatherStat> ConvertToDateTime(std::string date, std::string time);
+    std::vector<std::string> SplitStringData(std::string& str);
 };
 
