@@ -6,8 +6,8 @@
 #include "WeatherStatistic.h"
 
 int main() {
-    std::vector<std::string> listOfFiles {
-        "./data/Environmental_Data_Deep_Moor_2012.txt"
+    std::vector<std::string> listOfFiles{
+            "./data/Environmental_Data_Deep_Moor_2012.txt"
     };
 
     WeatherStatistic weatherStats{listOfFiles};

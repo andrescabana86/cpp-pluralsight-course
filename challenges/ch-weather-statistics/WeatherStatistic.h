@@ -8,12 +8,13 @@
 struct WeatherStat {
     tm dateTime;
     double airTemp, barometricPress, dewPoint, relativeHumidity, windDir, windGust, windSpeed;
-    time_t utcTime;
 
     WeatherStat();
 
-    WeatherStat(tm dateTime, double airTemp, double barometricPress, double dewPoint,
+    WeatherStat(tm dt, double airTemp, double barometricPress, double dewPoint,
                 double relativeHumidity, double windDir, double windGust, double windSpeed);
+
+    time_t getUTCTime();
 
     static std::optional<tm> ConvertToDateTime(const std::string &date, const std::string &time);
 };

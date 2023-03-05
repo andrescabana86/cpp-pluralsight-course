@@ -3,15 +3,18 @@
 #include <fstream>
 #include <optional>
 #include <regex>
+#include <chrono>
 
 WeatherStat::WeatherStat() {};
 
-WeatherStat::WeatherStat(tm dateTime, double airTemp, double barometricPress, double dewPoint, double relativeHumidity,
+WeatherStat::WeatherStat(tm dt, double airTemp, double barometricPress, double dewPoint,
+                         double relativeHumidity,
                          double windDir, double windGust, double windSpeed)
-        : dateTime(dateTime), airTemp(airTemp), barometricPress(barometricPress), dewPoint(dewPoint),
-          relativeHumidity(relativeHumidity), windDir(windDir), windGust(windGust), windSpeed(windSpeed) {
-    // compute the UTC time based on the local time
-    utcTime = mktime(&dateTime);
+        : dateTime(dt), airTemp(airTemp), barometricPress(barometricPress), dewPoint(dewPoint),
+          relativeHumidity(relativeHumidity), windDir(windDir), windGust(windGust), windSpeed(windSpeed) {}
+
+time_t WeatherStat::getUTCTime() {
+    return std::mktime(&dateTime);
 }
 
 std::optional<tm> WeatherStat::ConvertToDateTime(const std::string &date, const std::string &time) {
@@ -60,17 +63,24 @@ void WeatherStatistic::LoadDataFromFile(std::string fileLocation) {
         std::cerr << "file: " << fileLocation << " cannot be opened." << std::endl;
         return;
     }
+    auto start = std::chrono::high_resolution_clock::now();
+    int counter = 10000;
     std::string line;
     fileIn.ignore(LONG_MAX, '\n');
-    while (std::getline(fileIn, line)) {
+    while (std::getline(fileIn, line) && counter > 0) {
         std::vector<std::string> data = SplitStringData(line);
         std::optional<WeatherStat> stat = ConvertToWeatherStat(data);
         if (!stat.has_value()) {
             std::cerr << "line: " << line << " cannot be converted." << std::endl;
             continue;
         }
-        timeToPressureMap[stat.value().utcTime] = stat.value();
+        timeToPressureMap[stat.value().getUTCTime()] = stat.value();
+        counter--;
     };
+    auto end = std::chrono::high_resolution_clock::now();
+    std::cout << "time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
+              << " milliseconds."
+              << std::endl;
     fileIn.close();
 }
 
