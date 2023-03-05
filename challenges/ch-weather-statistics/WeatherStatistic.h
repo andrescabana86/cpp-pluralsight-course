@@ -6,15 +6,16 @@
 #include <optional>
 
 struct WeatherStat {
-    int year, month, day, hour, minute, second;
-    double airTemp, barometricPress, dewPoint, relativeHumidity, windDir, windGust, windSpeed;
     tm dateTime;
+    double airTemp, barometricPress, dewPoint, relativeHumidity, windDir, windGust, windSpeed;
     time_t utcTime;
 
     WeatherStat();
 
-    WeatherStat(int y, int m, int d, int h, int min, int sec, double airTemp, double barometricPress, double dewPoint,
+    WeatherStat(tm dateTime, double airTemp, double barometricPress, double dewPoint,
                 double relativeHumidity, double windDir, double windGust, double windSpeed);
+
+    static std::optional<tm> ConvertToDateTime(const std::string &date, const std::string &time);
 };
 
 class WeatherStatistic {
@@ -23,17 +24,18 @@ public:
 
     WeatherStatistic(std::vector<std::string> listOfFilesLocations);
 
-    void LoadFiles(std::vector<std::string> listOfFilesLocations);
-
 private:
     std::map<time_t, WeatherStat> timeToPressureMap;
+
+    void LoadFiles(std::vector<std::string> listOfFilesLocations);
 
     void LoadDataFromFile(std::string fileLocation);
 
     std::optional<WeatherStat> ConvertToWeatherStat(std::vector<std::string> data);
 
-    std::optional<WeatherStat> ConvertToDateTime(std::string date, std::string time);
 
     std::vector<std::string> SplitStringData(std::string &str);
+
+
 };
 
