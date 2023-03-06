@@ -13,8 +13,27 @@
  * - can convert from STL containers to observables
  * - supports either a chaining or a pipe interface
  */
+#include <iostream>
+#include "rx.hpp"
 
-// ToDo: install package manager to add RxCpp to the project, across multiple platforms
+int main() {
+    auto fib =
+            rxcpp::observable<>::create<long long>([](rxcpp::subscriber<long long> s) {
+                long long a = 0, b = 1;
+                for (int i = 0; i < 10; i++) {
+                    s.on_next(b);
+                    long long temp = b;
+                    b += a;
+                    a = temp;
+                }
+                s.on_completed();
+            });
 
+    fib.subscribe([](long long val) {
+        std::cout << val << " ";
+    });
+
+    return 0;
+}
 
 
