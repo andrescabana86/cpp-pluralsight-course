@@ -26,7 +26,7 @@ public:
     WeatherStatistic(std::vector<std::string> listOfFilesLocations);
 
 private:
-    std::map<time_t, WeatherStat> timeToPressureMap;
+    std::map<time_t, std::string> timeToPressureMap;
 
     void LoadFiles(std::vector<std::string> listOfFilesLocations);
 

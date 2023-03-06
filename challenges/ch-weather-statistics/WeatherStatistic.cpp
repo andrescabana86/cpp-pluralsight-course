@@ -63,24 +63,18 @@ void WeatherStatistic::LoadDataFromFile(std::string fileLocation) {
         std::cerr << "file: " << fileLocation << " cannot be opened." << std::endl;
         return;
     }
-    auto start = std::chrono::high_resolution_clock::now();
-    int counter = 10000;
+
     std::string line;
     fileIn.ignore(LONG_MAX, '\n');
-    while (std::getline(fileIn, line) && counter > 0) {
+    while (std::getline(fileIn, line)) {
         std::vector<std::string> data = SplitStringData(line);
         std::optional<WeatherStat> stat = ConvertToWeatherStat(data);
         if (!stat.has_value()) {
             std::cerr << "line: " << line << " cannot be converted." << std::endl;
             continue;
         }
-        timeToPressureMap[stat.value().getUTCTime()] = stat.value();
-        counter--;
+        timeToPressureMap[std::move(stat.value().getUTCTime())] = std::move(data[4]);
     };
-    auto end = std::chrono::high_resolution_clock::now();
-    std::cout << "time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
-              << " milliseconds."
-              << std::endl;
     fileIn.close();
 }
 
