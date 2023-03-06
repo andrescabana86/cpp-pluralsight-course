@@ -6,7 +6,10 @@
 
 int main() {
     std::vector<std::string> listOfFiles{
-            "./data/Environmental_Data_Deep_Moor_2012.txt"
+            "./data/Environmental_Data_Deep_Moor_2012.txt",
+            "./data/Environmental_Data_Deep_Moor_2013.txt",
+            "./data/Environmental_Data_Deep_Moor_2014.txt",
+            "./data/Environmental_Data_Deep_Moor_2015.txt",
     };
 
     // request start date/time from user
