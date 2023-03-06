@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include <semaphore>
 
 struct WeatherStat {
     tm dateTime;
@@ -26,6 +27,8 @@ public:
     WeatherStatistic(std::vector<std::string> listOfFilesLocations);
 
 private:
+    std::binary_semaphore timeToPressureMapMutex{1};
+
     std::map<time_t, WeatherStat> timeToPressureMap;
 
     void LoadFiles(std::vector<std::string> listOfFilesLocations);

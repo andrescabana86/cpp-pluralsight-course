@@ -4,6 +4,7 @@
 #include <optional>
 #include <regex>
 #include <chrono>
+#include <thread>
 
 WeatherStat::WeatherStat() {};
 
@@ -51,8 +52,14 @@ WeatherStatistic::WeatherStatistic(std::vector<std::string> listOfFilesLocations
 }
 
 void WeatherStatistic::LoadFiles(std::vector<std::string> listOfFilesLocations) {
+    std::vector<std::thread> writers;
     for (std::string fileLoc: listOfFilesLocations) {
-        LoadDataFromFile(fileLoc);
+        writers.push_back(
+                std::thread(&WeatherStatistic::LoadDataFromFile, this, fileLoc)
+        );
+    }
+    for (std::thread &t: writers) {
+        t.join();
     }
 }
 
@@ -75,7 +82,9 @@ void WeatherStatistic::LoadDataFromFile(std::string fileLocation) {
             std::cerr << "line: " << line << " cannot be converted." << std::endl;
             continue;
         }
+        timeToPressureMapMutex.acquire();
         timeToPressureMap.emplace(stat->getUTCTime(), std::move(*stat));
+        timeToPressureMapMutex.release();
     };
     auto end = std::chrono::high_resolution_clock::now();
     std::cout << "time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count()
