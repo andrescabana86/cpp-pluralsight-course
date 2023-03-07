@@ -152,3 +152,35 @@ time_t WeatherStatistic::GetFirstDateTime() {
 time_t WeatherStatistic::GetLastDateTime() {
     return timeToPressureMap.rbegin()->first;
 }
+
+std::optional<double>
+WeatherStatistic::computeCoefficient(std::string startDate, std::string startTime, std::string endDate,
+                                     std::string endTime) {
+    std::optional<tm> startDateTimeTm = WeatherStat::ConvertToDateTime(startDate, startTime);
+    std::optional<tm> endDateTimeTm = WeatherStat::ConvertToDateTime(endDate, endTime);
+
+    if (!startDateTimeTm.has_value() || !endDateTimeTm.has_value()) {
+        std::cerr << "ERROR: The start date/time must occur before the end date/time" << std::endl;
+        return std::nullopt;
+    }
+
+    time_t startDateTime = std::mktime(&(*startDateTimeTm));
+    time_t endDateTime = std::mktime(&(*endDateTimeTm));
+    if (endDateTime < startDateTime) {
+        std::cerr << "ERROR: The start date/time must occur before the end date/time" << std::endl;
+        return std::nullopt;
+    }
+
+    // find iterators based on input range
+    std::map<time_t, WeatherStat>::iterator startTimePressure;
+    std::map<time_t, WeatherStat>::iterator endTimePressure;
+    startTimePressure = timeToPressureMap.lower_bound(startDateTime);
+    endTimePressure = timeToPressureMap.lower_bound(endDateTime);
+
+    // Extract time and timeToPressure values
+    double timeDiff = endTimePressure->first - startTimePressure->first;
+    double pressureDiff = endTimePressure->second.barometricPress - startTimePressure->second.barometricPress;
+
+    // calculate and return slope
+    return (pressureDiff) / (timeDiff);
+}

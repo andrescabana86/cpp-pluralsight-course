@@ -28,6 +28,9 @@ public:
 
     bool IsValidDateTime(std::string date, std::string time);
 
+    std::optional<double>
+    computeCoefficient(std::string startDate, std::string startTime, std::string endDate, std::string endTime);
+
 private:
     std::binary_semaphore timeToPressureMapMutex{1};
 

@@ -34,5 +34,19 @@ int main() {
         return 1;
     }
 
+    std::optional<double> coeff = weatherStats.computeCoefficient(startDate, startTime, endDate, endTime);
+    if (!coeff.has_value()) {
+        std::cerr << "ERROR: something went wrong!" << std::endl;
+        exit(1);
+    }
+
+    std::cout << std::endl << "Coefficient: " << coeff * 24 * 60 * 60 << " inHg/day" << std::endl;
+    // determine if it's sunny or stormy
+    if (coeff < 0) {
+        std::cout << "Stormy conditions... Looks like you might need an umbrella!" << std::endl;
+    } else {
+        std::cout << "Sunny conditions... Don't forget your sunscreen!" << std::endl;
+    }
+
     return 0;
 }
