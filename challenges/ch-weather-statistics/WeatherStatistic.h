@@ -26,6 +26,10 @@ public:
 
     WeatherStatistic(std::vector<std::string> listOfFilesLocations);
 
+    bool IsValidDate(std::string date);
+
+    bool IsValidTime(std::string time);
+
 private:
     std::binary_semaphore timeToPressureMapMutex{1};
 
@@ -37,9 +41,6 @@ private:
 
     std::optional<WeatherStat> ConvertToWeatherStat(std::vector<std::string> data);
 
-
     std::vector<std::string> SplitStringData(std::string &str);
-
-
 };
 
