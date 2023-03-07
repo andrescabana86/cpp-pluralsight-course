@@ -19,7 +19,7 @@ int main() {
     std::cout << "Enter START TIME as hh:mm:ss (24-hour): ";
     std::cin >> startTime;
 
-    if (!weatherStats.IsValidDate(startDate) || !weatherStats.IsValidTime(startTime)) {
+    if (!weatherStats.IsValidDateTime(startDate, startTime)) {
         return 1;
     }
 
@@ -30,7 +30,7 @@ int main() {
     std::cout << "Enter END TIME as hh:mm:ss (24-hour): ";
     std::cin >> endTime;
 
-    if (!weatherStats.IsValidDate(endDate) || !weatherStats.IsValidTime(endTime)) {
+    if (!weatherStats.IsValidDateTime(endDate, endTime)) {
         return 1;
     }
 

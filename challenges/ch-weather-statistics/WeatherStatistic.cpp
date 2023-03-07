@@ -130,24 +130,25 @@ std::vector<std::string> WeatherStatistic::SplitStringData(std::string &str) {
     return data;
 }
 
-bool WeatherStatistic::IsValidDate(std::string dt) {
-    // parse values from date
-    int yyyy, mm, dd = 0;
-    int dateMatches = std::sscanf(dt.c_str(), "%d_%d_%d", &yyyy, &mm, &dd);
-    if (dateMatches != 3) {
+bool WeatherStatistic::IsValidDateTime(std::string date, std::string time) {
+    std::optional<tm> dateTimeTm = WeatherStat::ConvertToDateTime(date, time);
+    if (!dateTimeTm.has_value()) {
+        return false;
+    }
+
+    time_t dateTime = std::mktime(&(*dateTimeTm));
+    if ((dateTime < GetFirstDateTime()) || (dateTime > GetLastDateTime())) {
+        std::cerr << "ERROR: " << date << " " << time << " is outside available data range" << std::endl;
         return false;
     }
 
     return true;
 }
 
-bool WeatherStatistic::IsValidTime(std::string dt) {
-    // parse values from time
-    int h, m, s = 0;
-    int timeMatches = std::sscanf(dt.c_str(), "%d:%d:%d", &h, &m, &s);
-    if (timeMatches != 3) {
-        return false;
-    }
+time_t WeatherStatistic::GetFirstDateTime() {
+    return timeToPressureMap.begin()->first;
+}
 
-    return true;
+time_t WeatherStatistic::GetLastDateTime() {
+    return timeToPressureMap.rbegin()->first;
 }
